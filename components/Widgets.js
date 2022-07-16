@@ -8,7 +8,7 @@ const style = {
     searchBar: `flex items-center bg-[#243340] p-2 rounded-3xl`,
     searchIcon: `text-[#8899a6] mr-2`,
     inputBox: `bg-transparent outline-none`,
-    section: `bg-[#192734] my-6 rounded-xl overflow-hidden`,
+    section: `bg-[#1c2024] my-6 rounded-xl overflow-hidden`,
     title: `p-2 font-bold text-lg`,
     showMore: `p-2 text-[#1d9bf0] text-sm cursor-pointer hover:bg-[#22303c]`,
     item: `flex items-center p-3 my-2 hover:bg-[#22303c] cursor-pointer`,

@@ -16,6 +16,8 @@ import {
     BsPerson,
     BsPersonFill,
 } from 'react-icons/bs'
+import { logo } from '../lib/static'
+// import '../public/logo001.png'
 
 
 const style = {
@@ -41,7 +43,10 @@ function Sidebar({ initialSelectedIcon = 'Home' }) {
     return (
         <div className={style.wrapper}>
             <div className={style.twitterIconContainer}>
-                <RiRainbowLine />
+                <img
+                    src={logo[0].name}
+                />
+                {/* <RiRainbowLine /> */}
             </div>
             <div className={style.navContainer}>
                 <SidebarOption
@@ -63,7 +68,7 @@ function Sidebar({ initialSelectedIcon = 'Home' }) {
                     isActive={Boolean(selected === 'Notifications')}
                     setSelected={setSelected}
                 />
-                <SidebarOption
+                {/* <SidebarOption
                     Icon={selected === 'Messages' ? HiMail : HiOutlineMail}
                     text='Messages'
                     isActive={Boolean(selected === 'Messages')}
@@ -80,7 +85,7 @@ function Sidebar({ initialSelectedIcon = 'Home' }) {
                     text='Lists'
                     isActive={Boolean(selected === 'Lists')}
                     setSelected={setSelected}
-                />
+                /> */}
                 <SidebarOption
                     Icon={selected === 'Profile' ? BsPersonFill : BsPerson}
                     text='Profile'

@@ -18,6 +18,8 @@ export const TwitterProvider = ({ children }) => {
 
     useEffect(() => {
         if (!currentAccount && appStatus == 'connected') return
+        getCurrentUserDetails(currentAccount)
+        fetchTweets()
     }, [currentAccount, appStatus])
 
     const isAuthenticated = async () => {
@@ -98,13 +100,18 @@ export const TwitterProvider = ({ children }) => {
         setTweets([])
 
         sanityResponse.forEach(async item => {
+            // const profileImageUrl = await getNftProfileImage(
+            //     item.author.profileImage,
+            //     item.author.isProfileImageNft,
+            // )
+
             const newItem = {
                 tweet: item.tweet,
                 timestamp: item.timestamp,
                 author: {
                   name: item.author.name,
                   walletAddress: item.author.walletAddress,
-                  profileImage: profileImageUrl,
+                //   profileImage: profileImageUrl,
                   isProfileImageNft: item.author.isProfileImageNft,
                 },
             }
@@ -132,7 +139,7 @@ export const TwitterProvider = ({ children }) => {
         setCurrentUser({
             tweets: response[0].tweets,
             name: response[0].name,
-            profileImage: profileImageUri,
+            // profileImage: profileImageUri,
             walletAddress: response[0].walletAddress,
             coverImage: response[0].coverImage,
             isProfileImageNft: response[0].isProfileImageNft,
