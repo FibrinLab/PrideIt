@@ -1,23 +1,23 @@
-# Next.js + Tailwind CSS Example
+# Pride It
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+Developed by `DocAkan`. Please note that this project is deployed on the Celo Alfajores testnet. In order to proceed please add the following details to your metamask.
 
-## Deploy your own
+Network Name: Celo (Alfajores Testnet)
+New RPC URL: https://alfajores-forno.celo-testnet.org
+Chain ID: 44787
+Currency Symbol (Optional): CELO
+Block Explorer URL (Optional): https://alfajores-blockscout.celo-testnet.org
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+You can get some testnet tokens from [here](https://celo.org/developers/faucet)
 
-## How to use
+# Architecture
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-# or
-pnpm create next-app --example with-tailwindcss with-tailwindcss-app
-```
+# Tech Stack
+1. Solidity
+2. Next JS
+3. Sanity.io
+4. Tailwind CSS
+5. Vercel
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
