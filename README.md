@@ -11,6 +11,9 @@ Block Explorer URL (Optional): https://alfajores-blockscout.celo-testnet.org
 
 You can get some testnet tokens from [here](https://celo.org/developers/faucet)
 
+# Deployment Address
+Alfajores Testnet === `https://alfajores-blockscout.celo-testnet.org/address/0x041008D8A912c520fFd547083492AE406bad4C89/transactions`
+
 # Architecture
 
 

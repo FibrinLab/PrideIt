@@ -17,7 +17,9 @@ import {
     BsPersonFill,
 } from 'react-icons/bs'
 import { logo } from '../lib/static'
-// import '../public/logo001.png'
+import Modal from 'react-modal'
+import ProfileImageMinter from './mintingModal/ProfileImageMinter'
+import { customStyles } from '../lib/constants' 
 
 
 const style = {
@@ -56,12 +58,12 @@ function Sidebar({ initialSelectedIcon = 'Home' }) {
                     setSelected={setSelected}
                     redirect={'/'}
                 />
-                <SidebarOption
+                {/* <SidebarOption
                     Icon={selected === 'Explore' ? FaHashtag : BiHash}
                     text='Explore'
                     isActive={Boolean(selected === 'Explore')}
                     setSelected={setSelected}
-                />
+                /> */}
                 {/* <SidebarOption
                     Icon={selected === 'Notifications' ? FaBell : FiBell}
                     text='Notifications'
@@ -93,14 +95,15 @@ function Sidebar({ initialSelectedIcon = 'Home' }) {
                     setSelected={setSelected}
                     redirect={'/profile'}
                 />
-                <SidebarOption 
-                    Icon={CgMoreO} 
-                    onClick={() =>
-                        router.push(`${router.pathname}/?mint=${currentAccount}`)
+                <SidebarOption Icon={CgMoreO} text='More' setSelected={setSelected} />
+                <div
+                    onClick={
+                        () =>router.push(`${router.pathname}/?mint=${currentAccount}`)
                     }
-                    text='More' 
-                    setSelected={setSelected} />
-                <div className={style.tweetButton}>Mint</div>
+                    className={style.tweetButton}
+                >
+                    Mint
+                </div>
             </div>
             <div className={style.profileButton}>
                 <div className={style.profileLeft}>
@@ -126,6 +129,14 @@ function Sidebar({ initialSelectedIcon = 'Home' }) {
                     </div>
                 </div>
             </div>
+
+            <Modal
+                isOpen={Boolean(router.query.mint)}
+                onRequestClose={() => router.back()}
+                style={customStyles}
+            >
+                <ProfileImageMinter />
+            </Modal>
         </div>
     )
 }
