@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
+import { TwitterContext } from '../../context/TwitterContext'
 import { useRouter } from 'next/router'
 import { BsArrowLeftShort } from 'react-icons/bs'
 
@@ -25,6 +26,7 @@ const style = {
 
   
 const ProfileHeader = () => {
+    const { currentAccount, currentUser  } = useContext(TwitterContext)
     const router = useRouter();
 
   return (

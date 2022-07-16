@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { TwitterContext } from '../../context/TwitterContext'
 import { BsCardImage, BsEmojiSmile } from 'react-icons/bs'
 import { RiFileGifLine, RiBarChartHorizontalFill, Ri24HoursFill } from 'react-icons/ri'
 import { IoMdCalendar } from 'react-icons/io'
 import { MdOutlineLocationOn } from 'react-icons/md'
+import { client } from '../../lib/client'
 
 const style = {
     wrapper: `px-4 flex flex-row border-b border-[#38444d] pb-4`,
@@ -21,18 +23,53 @@ const style = {
 
 const TweetBox = () => {
     const [tweetMessage, setTweetMessage] = useState('')
+    const { currentAccount, currentUser, tweets  } = useContext(TwitterContext)
 
-    const postTweet = (event) => {
+    const postTweet = async (event) => {
         event.preventDefault()
-        console.log(tweetMessage)
+        
+        if (!tweetMessage) return
+        const tweetId = `${currentAccount}_${Date.now()}`
+
+        const tweetDoc = {
+            _type: 'tweets',
+            _id: tweetId,
+            tweet: tweetMessage,
+            timestamp: new Date(Date.now()).toISOString(),
+            author: {
+              _key: tweetId,
+              _ref: currentAccount,
+              _type: 'reference',
+            },
+        }
+
+        await client.createIfNotExists(tweetDoc)
+
+        await client
+        .patch(currentAccount)
+        .setIfMissing({ tweets: [] })
+        .insert('after', 'tweets[-1]', [
+            {
+            _key: tweetId,
+            _ref: tweetId,
+            _type: 'reference',
+            },
+        ])
+        .commit()
+
     }
 
   return (
     <div className={style.wrapper}>
         <div className={style.tweetBoxLeft}>
             <img 
-                src='https://pbs.twimg.com/media/FEaFK4OWUAAlgiV?format=jpg&name=medium'
-                className={style.profileImage}
+                src={currentUser.profileImage}
+                className={
+                    currentUser.isProfileImageNft
+                      ? `${style.profileImage} smallHex`
+                      : style.profileImage
+                }
+        
             />
         </div>
         <div className={style.tweetBoxRight}>

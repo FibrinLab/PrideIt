@@ -1,3 +1,5 @@
+import { useContext, useEffect } from 'react'
+import { TwitterContext } from '../../context/TwitterContext'
 import { BsStars } from 'react-icons/bs'
 import TweetBox from './TweetBox'
 import Post from '../Post'
@@ -8,35 +10,10 @@ const style = {
     headerTitle: `text-xl font-bold`, 
 }
 
-const tweets = [
-    {
-        displayName: 'Akan',
-        userName: '0xb5Dd83b2f1BAa2C73e14DE5061C2fb24c5cd2af5',
-        avatar: 'https://pbs.twimg.com/media/FEaFK4OWUAAlgiV?format=jpg&name=medium',
-        text: 'gm',
-        isProfileImageNft: true,
-        timestamp: '2022-07-08T12:00:00.000Z'
-    },
-    {
-        displayName: 'Akan',
-        userName: '0xb5Dd83b2f1BAa2C73e14DE5061C2fb24c5cd2af5',
-        avatar: 'https://pbs.twimg.com/media/FEaFK4OWUAAlgiV?format=jpg&name=medium',
-        text: 'gm',
-        isProfileImageNft: false,
-        timestamp: '2020-06-01T12:00:00.000Z'
-    },
-    {
-        displayName: 'Akan',
-        userName: '0xb5Dd83b2f1BAa2C73e14DE5061C2fb24c5cd2af5',
-        avatar: 'https://pbs.twimg.com/media/FEaFK4OWUAAlgiV?format=jpg&name=medium',
-        text: 'gm',
-        isProfileImageNft: false,
-        timestamp: '2020-06-01T12:00:00.000Z'
-    },
-]
-
 
 function Feed() {
+    const { tweets } = useContext(TwitterContext)
+
     return (
         <div className={style.wrapper}>
             <div className={style.header}>
@@ -44,19 +21,27 @@ function Feed() {
                 <BsStars />
             </div>
             <TweetBox />
-            {
-                tweets.map((tweet, index) => (
-                    <Post 
-                        key={index}
-                        displayName={tweet.displayName}
-                        userName={`${tweet.userName.slice(0, 4)}...${tweet.userName.slice(-4)}`}
-                        avatar={tweet.avatar}
-                        text={tweet.text}
-                        isProfileImageNft={tweet.isProfileImageNft}
-                        timestamp={tweet.timestamp}
-                    />
-                ))
-            }
+            {tweets.map((tweet, index) => (
+                <Post
+                key={index}
+                displayName={
+                    tweet.author.name === 'Unnamed'
+                    ? `${tweet.author.walletAddress.slice(
+                        0,
+                        4,
+                        )}...${tweet.author.walletAddress.slice(41)}`
+                    : tweet.author.name
+                }
+                userName={`${tweet.author.walletAddress.slice(
+                    0,
+                    4,
+                )}...${tweet.author.walletAddress.slice(41)}`}
+                text={tweet.tweet}
+                avatar={tweet.author.profileImage}
+                isProfileImageNft={tweet.author.isProfileImageNft}
+                timestamp={tweet.timestamp}
+                />
+            ))}
         </div>
     )
 
