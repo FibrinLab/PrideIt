@@ -26,7 +26,7 @@ const style = {
 
   
 const ProfileHeader = () => {
-    const { currentAccount, currentUser  } = useContext(TwitterContext)
+    const { currentAccount, currentUser } = useContext(TwitterContext)
     const router = useRouter();
 
   return (
@@ -36,8 +36,8 @@ const ProfileHeader = () => {
                 <BsArrowLeftShort />
             </div>
             <div className={style.details}>
-                <div className={style.primary}>Akan Osutuk</div>
-                <div className={style.secondary}>12 tweets</div>
+                <div className={style.primary}>{currentUser.name}</div>
+                {/* <div className={style.secondary}>{currentUser.tweets.length} Tweets</div> */}
             </div>
         </div>
         <div className={style.coverPhotoContainer}>
@@ -58,7 +58,7 @@ const ProfileHeader = () => {
         </div>
         <div className={style.details}>
             <div>
-                <div className={style.primary}>Akan Osutuk</div>
+                <div className={style.primary}>{currentUser.name}</div>
             </div>
             <div className={style.secondary}>
                 {currentAccount && (

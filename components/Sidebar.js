@@ -62,12 +62,12 @@ function Sidebar({ initialSelectedIcon = 'Home' }) {
                     isActive={Boolean(selected === 'Explore')}
                     setSelected={setSelected}
                 />
-                <SidebarOption
+                {/* <SidebarOption
                     Icon={selected === 'Notifications' ? FaBell : FiBell}
                     text='Notifications'
                     isActive={Boolean(selected === 'Notifications')}
                     setSelected={setSelected}
-                />
+                /> */}
                 {/* <SidebarOption
                     Icon={selected === 'Messages' ? HiMail : HiOutlineMail}
                     text='Messages'
