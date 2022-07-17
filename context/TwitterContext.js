@@ -86,6 +86,14 @@ export const TwitterProvider = ({ children }) => {
         }
     }
 
+    const getNftProfileImage = async (imageUri, isNft) => {
+        if (isNft) {
+          return `https://gateway.pinata.cloud/ipfs/${imageUri}`
+        } else if (!isNft) {
+          return imageUri
+        }
+    }
+
     const fetchTweets = async () => {
         const query = `
         *[_type == "tweets"]{
@@ -100,10 +108,10 @@ export const TwitterProvider = ({ children }) => {
         setTweets([])
 
         sanityResponse.forEach(async item => {
-            // const profileImageUrl = await getNftProfileImage(
-            //     item.author.profileImage,
-            //     item.author.isProfileImageNft,
-            // )
+            const profileImageUrl = await getNftProfileImage(
+                item.author.profileImage,
+                item.author.isProfileImageNft,
+            )
 
             const newItem = {
                 tweet: item.tweet,
@@ -111,7 +119,7 @@ export const TwitterProvider = ({ children }) => {
                 author: {
                   name: item.author.name,
                   walletAddress: item.author.walletAddress,
-                //   profileImage: profileImageUrl,
+                  profileImage: profileImageUrl,
                   isProfileImageNft: item.author.isProfileImageNft,
                 },
             }
@@ -136,10 +144,16 @@ export const TwitterProvider = ({ children }) => {
 
         const response = await client.fetch(query)
 
+        const profileImageUri = await getNftProfileImage(
+            response[0].profileImage,
+            response[0].isProfileImageNft,
+        )
+      
+
         setCurrentUser({
             tweets: response[0].tweets,
             name: response[0].name,
-            // profileImage: profileImageUri,
+            profileImage: profileImageUri,
             walletAddress: response[0].walletAddress,
             coverImage: response[0].coverImage,
             isProfileImageNft: response[0].isProfileImageNft,

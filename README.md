@@ -16,6 +16,8 @@ Alfajores Testnet === `https://alfajores-blockscout.celo-testnet.org/address/0x0
 
 # Architecture
 
+In celebration of the pride month, I have created this fully decentralized LGBTQ+ forum where users can sign in using their metamask wallet. Users can also mint an NFT profile image using the `mint` button. This app was developed using Next JS and deployed to Vercel. Please feel free to test out functionalities. It is currently a work in progress. I hope to make this more sophisticated soon.
+
 
 # Tech Stack
 1. Solidity
@@ -24,3 +26,4 @@ Alfajores Testnet === `https://alfajores-blockscout.celo-testnet.org/address/0x0
 4. Tailwind CSS
 5. Vercel
 6. Pinata
+7. Hardhat

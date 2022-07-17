@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { TwitterContext } from '../../context/TwitterContext'
 import Post from '../Post'
 
@@ -8,49 +8,58 @@ const style = {
     headerTitle: `text-xl font-bold`,
 }
 
-const tweets = [
-    {
-        displayName: 'Akan',
-        userName: '0xb5Dd83b2f1BAa2C73e14DE5061C2fb24c5cd2af5',
-        avatar: 'https://pbs.twimg.com/media/FEaFK4OWUAAlgiV?format=jpg&name=medium',
-        text: 'gm',
-        isProfileImageNft: true,
-        timestamp: '2022-07-08T12:00:00.000Z'
-    },
-    {
-        displayName: 'Akan',
-        userName: '0xb5Dd83b2f1BAa2C73e14DE5061C2fb24c5cd2af5',
-        avatar: 'https://pbs.twimg.com/media/FEaFK4OWUAAlgiV?format=jpg&name=medium',
-        text: 'gm',
-        isProfileImageNft: false,
-        timestamp: '2020-06-01T12:00:00.000Z'
-    },
-    {
-        displayName: 'Akan',
-        userName: '0xb5Dd83b2f1BAa2C73e14DE5061C2fb24c5cd2af5',
-        avatar: 'https://pbs.twimg.com/media/FEaFK4OWUAAlgiV?format=jpg&name=medium',
-        text: 'gm',
-        isProfileImageNft: false,
-        timestamp: '2020-06-01T12:00:00.000Z'
-    },
-]
 
 const ProfileTweets = () => {
     const { currentAccount, currentUser } = useContext(TwitterContext)
+    const [tweets, setTweets] = useState([
+        {
+          timestamp: '',
+          tweet: '',
+        },
+    ])
+
+    const [author, setAuthor] = useState({
+        name: '',
+        profileImage: '',
+        walletAddress: '',
+        isProfileImageNft: undefined,
+    })
+
+    useEffect(() => {
+        if (!currentUser) return
+    
+        setTweets(currentUser.tweets)
+        setAuthor({
+          name: currentUser.name,
+          profileImage: currentUser.profileImage,
+          walletAddress: currentUser.walletAddress,
+          isProfileImageNft: currentUser.isProfileImageNft,
+        })
+    }, [currentUser])
 
   return (
     <div className={style.wrapper}>
-        {tweets.map((tweet, index) => (
-            <Post 
-                key={index}
-                displayName={currentUser.name === 'Unnamed' ? currentUser.walletAddress : currentUser.name}
-                userName={`${currentAccount.slice(0,4)}...${currentAccount.slice(-4)}`}
-                text={tweet.text}
-                avatar={currentUser.ProfileImage}
-                isProfileImageNft={tweet.isProfileImageNft}
-                timestamp={tweet.timestamp}
-            />
-        ))}
+      {tweets?.map((tweet, index) => (
+        <Post
+          key={index}
+          displayName={
+            author.name === 'Unnamed'
+              ? `${author.walletAddress.slice(
+                  0,
+                  4,
+                )}...${author.walletAddress.slice(41)}`
+              : author.name
+          }
+          userName={`${author.walletAddress.slice(
+            0,
+            4,
+          )}...${author.walletAddress.slice(41)}`}
+          text={tweet.tweet}
+          avatar={author.profileImage}
+          timestamp={tweet.timestamp}
+          isProfileImageNft={author.isProfileImageNft}
+        />
+      ))}
     </div>
   )
 }

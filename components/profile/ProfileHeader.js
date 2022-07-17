@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { TwitterContext } from '../../context/TwitterContext'
 import { useRouter } from 'next/router'
 import { BsArrowLeftShort } from 'react-icons/bs'
@@ -29,53 +29,85 @@ const ProfileHeader = () => {
     const { currentAccount, currentUser } = useContext(TwitterContext)
     const router = useRouter();
 
-  return (
-    <div className={style.wrapper}>
-        <div className={style.header}>
+    const [userData, setUserData] = useState({
+        name: '',
+        profileImage: '',
+        coverImage: '',
+        walletAddress: '',
+        tweets: [],
+        isProfileImageNft: undefined,
+    })
+    
+    useEffect(() => {
+    if (!currentUser) return
+
+    setUserData({
+        name: currentUser.name,
+        profileImage: currentUser.profileImage,
+        walletAddress: currentUser.walletAddress,
+        coverImage: currentUser.coverImage,
+        tweets: currentUser.tweets,
+        isProfileImageNft: currentUser.isProfileImageNft,
+    })
+    }, [currentUser])
+
+    return (
+        <div className={style.wrapper}>
+          <div className={style.header}>
             <div onClick={() => router.push('/')} className={style.backButton}>
-                <BsArrowLeftShort />
+              <BsArrowLeftShort />
             </div>
             <div className={style.details}>
-                <div className={style.primary}>{currentUser.name}</div>
-                {/* <div className={style.secondary}>{currentUser.tweets.length} Tweets</div> */}
+              <div className={style.primary}>{userData.name}</div>
+              <div className={style.secondary}>
+                {userData.tweets?.length} Tweets
+              </div>
             </div>
-        </div>
-        <div className={style.coverPhotoContainer}>
-            <img 
-                src='https://wonderfulengineering.com/wp-content/uploads/2014/05/twitter-header-cover-1500x500.jpg'
-                alt='cover'
-                className={style.coverPhoto}
+          </div>
+          <div className={style.coverPhotoContainer}>
+            <img
+              src={userData.coverImage}
+              alt='cover'
+              className={style.coverPhoto}
             />
-        </div>
-        <div className={style.profileImageContainer}>
-            <div className={isProfileImageNft ? 'hex' : style.profileImageContainer}>
-                <img
-                    src='https://pbs.twimg.com/media/FEaFK4OWUAAlgiV?format=jpg&name=medium'
-                    alt='akan'
-                    className={isProfileImageNft ? style.profileImageNft : style.profileImage}
-                />
+          </div>
+          <div className={style.profileImageContainer}>
+            <div
+              className={
+                currentUser.isProfileImageNft ? 'hex' : style.profileImageContainer
+              }
+            >
+              <img
+                src={userData.profileImage}
+                alt={userData.walletAddress}
+                className={
+                  currentUser.isProfileImageNft
+                    ? style.profileImageNft
+                    : style.profileImage
+                }
+              />
             </div>
-        </div>
-        <div className={style.details}>
+          </div>
+          <div className={style.details}>
             <div>
-                <div className={style.primary}>{currentUser.name}</div>
+              <div className={style.primary}>{currentUser.name}</div>
             </div>
             <div className={style.secondary}>
-                {currentAccount && (
-                    <>
-                        @{currentAccount.slice(0,6)}....{currentAccount.slice(-5)}
-                    </>
-                )}
+              {currentAccount && (
+                <>
+                  @{currentAccount.slice(0, 8)}...{currentAccount.slice(37)}
+                </>
+              )}
             </div>
-        </div>
-        <div className={style.nav}>
+          </div>
+          <div className={style.nav}>
             <div className={style.activeNav}>Tweets</div>
-            <div>Tweets and Replies</div>
+            <div>Tweets & Replies</div>
             <div>Media</div>
             <div>Likes</div>
+          </div>
         </div>
-    </div>
-  )
+      )
 }
 
 export default ProfileHeader

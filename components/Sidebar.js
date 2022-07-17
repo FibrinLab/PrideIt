@@ -95,7 +95,7 @@ function Sidebar({ initialSelectedIcon = 'Home' }) {
                     setSelected={setSelected}
                     redirect={'/profile'}
                 />
-                <SidebarOption Icon={CgMoreO} text='More' setSelected={setSelected} />
+                {/* <SidebarOption Icon={CgMoreO} text='More' setSelected={setSelected} /> */}
                 <div
                     onClick={
                         () =>router.push(`${router.pathname}/?mint=${currentAccount}`)

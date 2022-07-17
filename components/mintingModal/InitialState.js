@@ -33,14 +33,16 @@ const InitialState = ({
                     <label
                         htmlFor='image-upload'
                         className={profileImage ? style.fileSelected : style.customInput}
-                    />
+                    >
+                        Select File
+                    </label>
                     <input
                         type='file'
                         id='image-upload'
                         accept='.jpg, .jpeg, .png'
                         className={style.fileInput}
                         placeholder='Image URL'
-                        onChange={e => setProfileImage(e.target.files[0])}
+                        onChange={(e) => setProfileImage(e.target.files[0])}
                     />
                 </div>
                 <div className={style.inputContainer}>
