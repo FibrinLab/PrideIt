@@ -23,4 +23,4 @@ Alfajores Testnet === `https://alfajores-blockscout.celo-testnet.org/address/0x0
 3. Sanity.io
 4. Tailwind CSS
 5. Vercel
-
+6. Pinata
